@@ -1,8 +1,8 @@
-# center-code
+# @sergeysova/center-code
 
 > Shows the file's source centered in the terminal
 
-    npm install -g center-code
+    npm install -g @sergeysova/center-code
 
 For any file
 
@@ -12,7 +12,7 @@ For any file
 
 The file's contents will be centered in the terminal, which is great for demos and live coding.
 
-![center-code](images/center-code.png)
+![@sergeysova/center-code](images/center-code.png)
 
 JavaScript `.js`, JSON `.json` and Markdown files `.md` will be syntax highlighted.
 The input read from STDIN is not syntax highlighted.
@@ -32,16 +32,22 @@ Author: Gleb Bahmutov &copy; 2015
 * [glebbahmutov.com](http://glebbahmutov.com)
 * [blog](http://glebbahmutov.com/blog/)
 
+Fork: Sergey Sova &copy; 2018
+
+* [sergeysova.com](https://sergeysova.com)
+* [@sergeysovacom](https://twitter.com/sergeysovacom)
+
 License: MIT - do anything with the code, but don't blame me if it does not work.
 
 Spread the word: tweet, star on github, etc.
 
 Support: if you find any problems with this module, email / tweet /
-[open issue](https://github.com/bahmutov/center-code/issues) on Github
+[open issue](https://github.com/sergeysova/center-code/issues) on Github
 
 ## MIT License
 
 Copyright (c) 2015 Gleb Bahmutov
+Copyright (c) 2018 Sergey Sova
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -64,13 +70,13 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-[center-code-icon]: https://nodei.co/npm/center-code.png?downloads=true
-[center-code-url]: https://npmjs.org/package/center-code
-[center-code-ci-image]: https://travis-ci.org/bahmutov/center-code.svg?branch=master
-[center-code-ci-url]: https://travis-ci.org/bahmutov/center-code
-[center-code-dependencies-image]: https://david-dm.org/bahmutov/center-code.svg
-[center-code-dependencies-url]: https://david-dm.org/bahmutov/center-code
-[center-code-devdependencies-image]: https://david-dm.org/bahmutov/center-code/dev-status.svg
-[center-code-devdependencies-url]: https://david-dm.org/bahmutov/center-code#info=devDependencies
+[center-code-icon]: https://nodei.co/npm/@sergeysova/center-code.png?downloads=true
+[center-code-url]: https://npmjs.org/package/@sergeysova/center-code
+[center-code-ci-image]: https://travis-ci.org/sergeysova/center-code.svg?branch=master
+[center-code-ci-url]: https://travis-ci.org/sergeysova/center-code
+[center-code-dependencies-image]: https://david-dm.org/sergeysova/center-code.svg
+[center-code-dependencies-url]: https://david-dm.org/sergeysova/center-code
+[center-code-devdependencies-image]: https://david-dm.org/sergeysova/center-code/dev-status.svg
+[center-code-devdependencies-url]: https://david-dm.org/sergeysova/center-code#info=devDependencies
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
