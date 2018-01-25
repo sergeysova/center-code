@@ -2,13 +2,17 @@
 
 > Shows the file's source centered in the terminal
 
-    npm install -g @sergeysova/center-code
+```bash
+npm install -g @sergeysova/center-code
+```
 
 For any file
 
-    center <filename>
-    // or read from STDIN
-    cat <filename> | center
+```bash
+center <filename>
+# or read from STDIN
+cat <filename> | center
+```
 
 The file's contents will be centered in the terminal, which is great for demos and live coding.
 
@@ -17,9 +21,9 @@ The file's contents will be centered in the terminal, which is great for demos a
 JavaScript `.js`, JSON `.json` and Markdown files `.md` will be syntax highlighted.
 The input read from STDIN is not syntax highlighted.
 
-[![center-code-icon] [center-code-icon]][center-code-icon]
+[![center-code-icon][center-code-icon]][center-code-url]
 
-[![Build status][center-code-ci-image] ][center-code-ci-url]
+[![Build status][center-code-ci-image]][center-code-ci-url]
 [![dependencies][center-code-dependencies-image] ][center-code-dependencies-url]
 [![devdependencies][center-code-devdependencies-image] ][center-code-devdependencies-url]
 [![semantic-release][semantic-image] ][semantic-url]
