@@ -41,22 +41,10 @@ function widest(lines) {
 
 function padVertically(terminal, text) {
   const sourceLines = text.split('\n')
-  const rows = sourceLines.length
-  let blankLines = Math.floor((terminal.height - rows) / 2)
 
-  if (blankLines < 1) {
-    blankLines = 0
-  }
-  log('blank lines on the top %d', blankLines)
-  let k
-
-  for (k = 0; k < blankLines; k += 1) {
-    sourceLines.unshift('')
-  }
-  // need to leave 1 or 2 lines at the bottom for the prompt
-  for (k = 0; k < blankLines - 1; k += 1) {
-    sourceLines.push('')
-  }
+  // Add blank lines before and after source
+  sourceLines.unshift('')
+  sourceLines.push('')
 
   return sourceLines.join('\n')
 }

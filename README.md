@@ -51,6 +51,7 @@ Support: if you find any problems with this module, email / tweet /
 ## MIT License
 
 Copyright (c) 2015 Gleb Bahmutov
+
 Copyright (c) 2018 Sergey Sova
 
 Permission is hereby granted, free of charge, to any person
