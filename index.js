@@ -6,6 +6,7 @@ const Promise = require('bluebird')
 const {
   existsSync: exists,
   readFileSync: read,
+  statSync: stats,
 } = require('fs')
 
 const utils = require('./src/utils')
@@ -126,6 +127,11 @@ function centerCode(options) {
 
   if (!exists(options.filename)) {
     console.log('ERROR: cannot find input file', options.filename)
+    process.exit(-1)
+  }
+
+  if (!stats(options.filename).isFile()) {
+    console.log('ERROR: path is not a file', options.filename)
     process.exit(-1)
   }
 
