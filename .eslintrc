@@ -1,25 +1,15 @@
 {
-  "rules": {
-    "no-console": 0,
-    "indent": [
-      2,
-      2
-    ],
-    "quotes": [
-      2,
-      "single"
-    ],
-    "linebreak-style": [
-      2,
-      "unix"
-    ],
-    "semi": [
-      2,
-      "always"
-    ]
-  },
+  "extends": "@atomix/eslint-config",
   "env": {
     "node": true,
     "browser": false
+  },
+  "rules": {
+    "id-match": "off",
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-magic-numbers": "off",
+    "global-require": "off",
+    "unicorn/no-process-exit": "off"
   }
 }

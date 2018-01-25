@@ -1,20 +1,20 @@
 // taken from
 // https://github.com/MostlyAdequate/mostly-adequate-guide
-var R = require('ramda');
-console.assert(typeof R.compose === 'function', 'has R.compose');
+const R = require('ramda')
 
-var IO = function(f) {
-  this.unsafePerformIO = f;
-};
 
-IO.of = function(x) {
-  return new IO(function() {
-    return x;
-  });
-};
+console.assert(typeof R.compose === 'function', 'has R.compose')
 
-IO.prototype.map = function(f) {
-  return new IO(R.compose(f, this.unsafePerformIO));
-};
+const IO = function IO(f) {
+  this.unsafePerformIO = f
+}
 
-module.exports = IO;
+IO.of = function of(x) {
+  return new IO((() => x))
+}
+
+IO.prototype.map = function map(f) {
+  return new IO(R.compose(f, this.unsafePerformIO))
+}
+
+module.exports = IO

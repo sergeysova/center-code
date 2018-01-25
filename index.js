@@ -1,149 +1,157 @@
-'use strict';
+const log = require('debug')('center')
+const R = require('ramda')
+const la = require('lazy-ass')
+const check = require('check-more-types')
+const Promise = require('bluebird')
+const {
+  existsSync: exists,
+  readFileSync: read,
+} = require('fs')
 
-var log = require('debug')('center');
-var R = require('ramda');
-var la = require('lazy-ass');
-var check = require('check-more-types');
-var Promise = require('bluebird');
-var utils = require('./src/utils');
-var exists = require('fs').existsSync;
+const utils = require('./src/utils')
+const IO = require('./src/io')
 
-function getProcess() { return process; }
+
+function getProcess() {
+  return process
+}
 
 function terminalSize() {
-  var IO = require('./src/io');
   return new IO(getProcess)
     .map(R.prop('stdout'))
-    .map(function (outputStream) {
-      return {
-        width: outputStream.columns,
-        height: outputStream.rows
-      };
-    });
+    .map((outputStream) => ({
+      width: outputStream.columns,
+      height: outputStream.rows,
+    }))
 }
 
 function getSource(filename) {
-  var read = require('fs').readFileSync;
-  return read(filename, 'utf-8');
+  return read(filename, 'utf-8')
 }
 
 function toPromise(value) {
-  return new Promise(function (resolve) {
-    resolve(value);
-  });
+  return new Promise(((resolve) => {
+    resolve(value)
+  }))
 }
 
 function widest(lines) {
-  return lines.reduce(function (columns, line) {
-    return columns > line.length ? columns : line.length;
-  }, 0);
+  return lines.reduce((columns, line) => columns > line.length ? columns : line.length, 0)
 }
 
 function padVertically(terminal, text) {
-  var sourceLines = text.split('\n');
-  var rows = sourceLines.length;
-  var blankLines = Math.floor((terminal.height - rows) / 2);
+  const sourceLines = text.split('\n')
+  const rows = sourceLines.length
+  let blankLines = Math.floor((terminal.height - rows) / 2)
+
   if (blankLines < 1) {
-    blankLines = 0;
+    blankLines = 0
   }
-  log('blank lines on the top %d', blankLines);
-  var k;
+  log('blank lines on the top %d', blankLines)
+  let k
+
   for (k = 0; k < blankLines; k += 1) {
-    sourceLines.unshift('');
+    sourceLines.unshift('')
   }
   // need to leave 1 or 2 lines at the bottom for the prompt
   for (k = 0; k < blankLines - 1; k += 1) {
-    sourceLines.push('');
+    sourceLines.push('')
   }
 
-  return sourceLines.join('\n');
+  return sourceLines.join('\n')
 }
 
 function blanks(n) {
-  var k, space = '';
-  for (k = 0; k < n; k += 1) {
-    space += ' ';
+  let space = ''
+
+  for (let k = 0; k < n; k += 1) {
+    space += ' '
   }
-  return space;
+  return space
+}
+
+function textSize(text) {
+  const lines = text.split('\n')
+  const columns = widest(lines)
+
+  return {
+    columns,
+    rows: lines.length,
+  }
 }
 
 function padHorizontally(terminal, text, columns) {
   if (check.not.number(columns)) {
-    columns = textSize(text).columns;
+    // eslint-disable-next-line prefer-destructuring, no-param-reassign
+    columns = textSize(text).columns
   }
-  la(check.number(columns), 'missing number of columns', text);
+  la(check.number(columns), 'missing number of columns', text)
 
-  var lines = text.split('\n');
-  var blankColumns = Math.floor((terminal.width - columns) / 2);
-  var blankPrefix = blanks(blankColumns);
-  log('blank prefix "%s" %d columns', blankPrefix, blankPrefix.length);
+  const lines = text.split('\n')
+  const blankColumns = Math.floor((terminal.width - columns) / 2)
+  const blankPrefix = blanks(blankColumns)
 
-  var padded = lines.map(function (line) {
-    return blankPrefix + line;
-  });
+  log('blank prefix "%s" %d columns', blankPrefix, blankPrefix.length)
 
-  return padded.join('\n');
-}
+  const padded = lines.map((line) => blankPrefix + line)
 
-function textSize(text) {
-  var lines = text.split('\n');
-  var columns = widest(lines);
-  return {
-    columns: columns,
-    rows: lines.length
-  };
+  return padded.join('\n')
 }
 
 function centerText(options, source) {
-  var monad = terminalSize()
-    .map(function (size) {
-      log('terminal %d x %d', size.width, size.height);
+  const monad = terminalSize()
+    .map((size) => { // eslint-disable-line array-callback-return
+      log('terminal %d x %d', size.width, size.height)
 
-      var sourceSize = textSize(source);
-      log('source size %d x %d', sourceSize.columns, sourceSize.rows);
+      const sourceSize = textSize(source)
 
-      var highlighted = utils.highlight(options.filename, source);
+      log('source size %d x %d', sourceSize.columns, sourceSize.rows)
 
-      var paddedHorizontally = padHorizontally(size, highlighted, sourceSize.columns);
-      var paddedVertically = padVertically(size, paddedHorizontally);
-      console.log(paddedVertically);
-    });
+      const highlighted = utils.highlight(options.filename, source)
+
+      const paddedHorizontally = padHorizontally(size, highlighted, sourceSize.columns)
+      const paddedVertically = padVertically(size, paddedHorizontally)
+
+      console.log(paddedVertically)
+    })
+
   // nothing has happened yet - no functions executed, just composed
   // now run them (including unsafe ones)
-  monad.unsafePerformIO();
+  monad.unsafePerformIO()
 }
 
 function grabInput(options) {
   if (options.filename) {
-    log('showing in the center %s', options.filename);
-    return toPromise(getSource(options.filename));
+    log('showing in the center %s', options.filename)
+    return toPromise(getSource(options.filename))
   }
 
-  log('reading input from STDIN');
-  var stdin = require('get-stdin-promise');
-  return stdin;
+  log('reading input from STDIN')
+  const stdin = require('get-stdin-promise')
+
+  return stdin
 }
 
 function centerCode(options) {
-  options = options || {};
-  options.filename = options.filename || options.name;
+  options = options || {}
+  options.filename = options.filename || options.name
 
   if (!exists(options.filename)) {
-    console.log('ERROR: cannot find input file', options.filename);
-    process.exit(-1);
+    console.log('ERROR: cannot find input file', options.filename)
+    process.exit(-1)
   }
 
   grabInput(options)
-    .then(function (source) {
-      centerText(options, source);
-    }).catch(console.error.bind(console));
+    .then((source) => {
+      centerText(options, source)
+    }).catch(console.error.bind(console))
 }
 
-module.exports = centerCode;
+module.exports = centerCode
 
 if (!module.parent) {
-  console.log('running directly');
+  console.log('running directly')
   centerCode({
-    filename: __dirname + '/example/small.js'
-  });
+    filename: `${__dirname}/example/small.js`,
+  })
 }
