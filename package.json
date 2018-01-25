@@ -1,8 +1,11 @@
 {
-  "name": "center-code",
+  "name": "@sergeysova/center-code",
   "description": "Shows the file's source centered in the terminal",
   "main": "index.js",
-  "version": "0.0.0-semantic-release",
+  "version": "0.0.0-pre",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "npm run unit",
     "unit": "mocha src/*-spec.js",
@@ -17,7 +20,6 @@
     "commit": "git-issues && commit-wizard",
     "pkgfiles": "pkgfiles",
     "size": "tarball=\"$(npm pack .)\"; wc -c \"${tarball}\"; tar tvf \"${tarball}\"; rm \"${tarball}\";",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "next-update": "next-update -k true --tldr"
   },
   "bin": {
@@ -26,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bahmutov/center-code.git"
+    "url": "https://github.com/sergeysova/center-code.git"
   },
   "keywords": [
     "center",
@@ -40,11 +42,14 @@
     "source"
   ],
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "contributors": [
+    "Sergey Sova <mail@sergeysova.com>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bahmutov/center-code/issues"
+    "url": "https://github.com/sergeysova/center-code/issues"
   },
-  "homepage": "https://github.com/bahmutov/center-code#readme",
+  "homepage": "https://github.com/sergeysova/center-code",
   "dependencies": {
     "bluebird": "^3.5.1",
     "cardinal": "^1.0.0",
@@ -65,8 +70,7 @@
     "modules-used": "1.2.0",
     "next-update": "^3.6.0",
     "pkgfiles": "^2.3.2",
-    "pre-git": "^3.17.0",
-    "semantic-release": "^12.2.5"
+    "pre-git": "^3.17.0"
   },
   "files": [
     "bin",
