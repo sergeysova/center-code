@@ -1,6 +1,6 @@
 # @sergeysova/center-code
 
-> Shows the file's source centered in the terminal
+> Shows the file's source centered and highlighted in the terminal
 
 ```bash
 npm install -g @sergeysova/center-code
@@ -18,7 +18,7 @@ The file's contents will be centered in the terminal, which is great for demos a
 
 ![@sergeysova/center-code](images/center-code.png)
 
-JavaScript `.js`, JSON `.json` and Markdown files `.md` will be syntax highlighted.
+Any file extension that support [emphasize](https://www.npmjs.com/package/emphasize) is supported in @sergeysova/center-code.
 The input read from STDIN is not syntax highlighted.
 
 [![center-code-icon][center-code-icon]][center-code-url]
