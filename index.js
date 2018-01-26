@@ -1,5 +1,3 @@
-import { rethrow } from 'rsvp';
-
 const log = require('debug')('center')
 const R = require('ramda')
 const la = require('lazy-ass')
@@ -43,13 +41,7 @@ function widest(lines) {
 }
 
 function padVertically(terminal, text) {
-  const sourceLines = text.split('\n')
-
-  // Add blank lines before and after source
-  sourceLines.unshift('')
-  sourceLines.push('')
-
-  return sourceLines.join('\n')
+  return `\n${text}\n`
 }
 
 function blanks(n) {
