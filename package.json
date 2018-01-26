@@ -1,6 +1,6 @@
 {
   "name": "@sergeysova/center-code",
-  "description": "Shows the file's source centered in the terminal",
+  "description": "Shows the file's source centered and highlighted in the terminal",
   "main": "index.js",
   "version": "1.1.1",
   "publishConfig": {
@@ -14,6 +14,10 @@
     "example": "./bin/center-code.js example/small.js",
     "example-md": "./bin/center-code.js README.md",
     "shebang": "./bin/center-code.js example/small-with-shebang.js",
+    "xml": "./bin/center-code.js example/example.xml",
+    "rust": "./bin/center-code.js example/example.rs",
+    "ruby": "./bin/center-code.js example/example.rb",
+    "docker": "./bin/center-code.js example/Dockerfile",
     "cat": "cat example/small.js | node bin/center-code.js",
     "modules-used": "modules-used > modules-used.md",
     "issues": "git-issues",
@@ -39,7 +43,9 @@
     "demo",
     "term",
     "terminal",
-    "source"
+    "source",
+    "highlight",
+    "syntax"
   ],
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "contributors": [
@@ -52,13 +58,11 @@
   "homepage": "https://github.com/sergeysova/center-code",
   "dependencies": {
     "bluebird": "^3.5.1",
-    "cardinal": "^1.0.0",
     "check-more-types": "^2.24.0",
     "debug": "^3.1.0",
+    "emphasize": "^1.5.0",
     "get-stdin-promise": "0.1.1",
     "lazy-ass": "^1.6.0",
-    "marked": "^0.3.5",
-    "marked-terminal": "^2.0.0",
     "ramda": "^0.25.0"
   },
   "devDependencies": {
