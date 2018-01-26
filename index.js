@@ -50,13 +50,8 @@ function padVertically(terminal, text) {
   return sourceLines.join('\n')
 }
 
-function blanks(n) {
-  let space = ''
-
-  for (let k = 0; k < n; k += 1) {
-    space += ' '
-  }
-  return space
+function blanks(length) {
+  return new Array(length).fill(' ').join('')
 }
 
 function textSize(text) {
