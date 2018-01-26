@@ -1,3 +1,5 @@
+import { rethrow } from 'rsvp';
+
 const log = require('debug')('center')
 const R = require('ramda')
 const la = require('lazy-ass')
@@ -51,12 +53,7 @@ function padVertically(terminal, text) {
 }
 
 function blanks(n) {
-  let space = ''
-
-  for (let k = 0; k < n; k += 1) {
-    space += ' '
-  }
-  return space
+  return new Array(n).fill(' ').join('')
 }
 
 function textSize(text) {

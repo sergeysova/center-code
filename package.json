@@ -100,7 +100,7 @@
       "post-merge": []
     }
   },
-  "--release": {
+  "release": {
     "analyzeCommits": "simple-commit-message"
   }
 }
