@@ -3,11 +3,7 @@ const R = require('ramda')
 const la = require('lazy-ass')
 const check = require('check-more-types')
 const Promise = require('bluebird')
-const {
-  existsSync: exists,
-  readFileSync: read,
-  statSync: stats,
-} = require('fs')
+const { existsSync: exists, readFileSync: read, statSync: stats } = require('fs')
 
 const utils = require('./src/utils')
 const IO = require('./src/io')
@@ -18,12 +14,10 @@ function getProcess() {
 }
 
 function terminalSize() {
-  return new IO(getProcess)
-    .map(R.prop('stdout'))
-    .map((outputStream) => ({
-      width: outputStream.columns,
-      height: outputStream.rows,
-    }))
+  return new IO(getProcess).map(R.prop('stdout')).map((outputStream) => ({
+    width: outputStream.columns,
+    height: outputStream.rows,
+  }))
 }
 
 function getSource(filename) {
@@ -31,32 +25,21 @@ function getSource(filename) {
 }
 
 function toPromise(value) {
-  return new Promise(((resolve) => {
+  return new Promise((resolve) => {
     resolve(value)
-  }))
+  })
 }
 
 function widest(lines) {
-  return lines.reduce((columns, line) => columns > line.length ? columns : line.length, 0)
+  return lines.reduce((columns, line) => (columns > line.length ? columns : line.length), 0)
 }
 
 function padVertically(terminal, text) {
-  const sourceLines = text.split('\n')
-
-  // Add blank lines before and after source
-  sourceLines.unshift('')
-  sourceLines.push('')
-
-  return sourceLines.join('\n')
+  return text.replace(/^\n*/, '\n').replace(/\n*$/, '\n')
 }
 
 function blanks(n) {
-  let space = ''
-
-  for (let k = 0; k < n; k += 1) {
-    space += ' '
-  }
-  return space
+  return (new Array(n)).fill(' ').join('')
 }
 
 function textSize(text) {
@@ -88,21 +71,23 @@ function padHorizontally(terminal, text, columns) {
 }
 
 function centerText(options, source) {
-  const monad = terminalSize()
-    .map((size) => { // eslint-disable-line array-callback-return
-      log('terminal %d x %d', size.width, size.height)
+  const monad = terminalSize().map((size) => {
+    // eslint-disable-line array-callback-return
+    log('terminal %d x %d', size.width, size.height)
 
-      const sourceSize = textSize(source)
+    const sourceSize = textSize(source)
 
-      log('source size %d x %d', sourceSize.columns, sourceSize.rows)
+    log('source size %d x %d', sourceSize.columns, sourceSize.rows)
 
-      const highlighted = utils.highlight(options.filename, source)
+    const highlighted = utils.highlight(options.filename, source)
 
-      const paddedHorizontally = padHorizontally(size, highlighted, sourceSize.columns)
-      const paddedVertically = padVertically(size, paddedHorizontally)
+    const paddedHorizontally = padHorizontally(size, highlighted, sourceSize.columns)
+    const paddedVertically = padVertically(size, paddedHorizontally)
 
-      console.log(paddedVertically)
-    })
+    console.log(paddedVertically)
+
+    return null
+  })
 
   // nothing has happened yet - no functions executed, just composed
   // now run them (including unsafe ones)
@@ -138,7 +123,8 @@ function centerCode(options) {
   grabInput(options)
     .then((source) => {
       centerText(options, source)
-    }).catch(console.error.bind(console))
+    })
+    .catch(console.error.bind(console))
 }
 
 module.exports = centerCode

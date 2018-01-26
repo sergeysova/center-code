@@ -5,7 +5,6 @@ const check = require('check-more-types') // eslint-disable-line no-unused-vars
 const describeIt = require('describe-it')
 const { join } = require('path')
 
-
 /* global before, it, xit */
 const index = join(__dirname, '..', 'index.js')
 
@@ -47,12 +46,12 @@ describeIt(index, 'terminalSize()', (extract) => {
   it('works with a monad', () => {
     let verified // to make sure monad chain ran
 
-    const monad = terminalSize()
-      .map((size) => { // eslint-disable-line array-callback-return
-        la(size.width === 42)
-        la(size.height === 20)
-        verified = true
-      })
+    const monad = terminalSize().map((size) => {
+      // eslint-disable-line array-callback-return
+      la(size.width === 42)
+      la(size.height === 20)
+      verified = true
+    })
 
     // nothing ran yet. Time to prepare the environment!
     process.stdout.columns = 42
