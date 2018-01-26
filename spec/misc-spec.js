@@ -5,7 +5,6 @@ const check = require('check-more-types') // eslint-disable-line no-unused-vars
 const describeIt = require('describe-it')
 const { join } = require('path')
 
-
 /* global before, it, xit */
 const index = join(__dirname, '..', 'index.js')
 
@@ -20,6 +19,37 @@ describeIt(index, 'widest(lines)', (extract) => {
     const found = widest(['foo', 'bar', '12345'])
 
     la(found === 5, 'widest line', found)
+  })
+})
+
+describeIt(index, 'padVertically(terminal, text)', (extract) => {
+  let padVertically
+
+  before(() => {
+    padVertically = extract()
+  })
+
+  it('replaces start and end with \\n symbol', () => {
+    const result = padVertically(true, `
+
+
+
+
+
+function padVertically(terminal, text) {
+  return '\\ntext.trim('\\n')}\\n'
+}
+
+
+
+
+`)
+
+    la(result === `
+function padVertically(terminal, text) {
+  return '\\ntext.trim('\\n')}\\n'
+}
+`, 'result', result)
   })
 })
 
@@ -47,12 +77,12 @@ describeIt(index, 'terminalSize()', (extract) => {
   it('works with a monad', () => {
     let verified // to make sure monad chain ran
 
-    const monad = terminalSize()
-      .map((size) => { // eslint-disable-line array-callback-return
-        la(size.width === 42)
-        la(size.height === 20)
-        verified = true
-      })
+    const monad = terminalSize().map((size) => {
+      // eslint-disable-line array-callback-return
+      la(size.width === 42)
+      la(size.height === 20)
+      verified = true
+    })
 
     // nothing ran yet. Time to prepare the environment!
     process.stdout.columns = 42

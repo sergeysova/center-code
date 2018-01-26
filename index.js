@@ -85,6 +85,8 @@ function centerText(options, source) {
     const paddedVertically = padVertically(size, paddedHorizontally)
 
     console.log(paddedVertically)
+
+    return null
   })
 
   // nothing has happened yet - no functions executed, just composed
