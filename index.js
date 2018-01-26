@@ -41,7 +41,7 @@ function widest(lines) {
 }
 
 function padVertically(terminal, text) {
-  return `\n${text}\n`
+  return `\n${text.replace(/^\n+/, '').replace(/\n+$/, '')}\n`
 }
 
 function blanks(n) {
