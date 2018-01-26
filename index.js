@@ -1,5 +1,3 @@
-import { rethrow } from 'rsvp';
-
 const log = require('debug')('center')
 const R = require('ramda')
 const la = require('lazy-ass')
