@@ -22,37 +22,6 @@ describeIt(index, 'widest(lines)', (extract) => {
   })
 })
 
-describeIt(index, 'padVertically(terminal, text)', (extract) => {
-  let padVertically
-
-  before(() => {
-    padVertically = extract()
-  })
-
-  it('replaces start and end with \\n symbol', () => {
-    const result = padVertically(true, `
-
-
-
-
-
-function padVertically(terminal, text) {
-  return '\\ntext.trim('\\n')}\\n'
-}
-
-
-
-
-`)
-
-    la(result === `
-function padVertically(terminal, text) {
-  return '\\ntext.trim('\\n')}\\n'
-}
-`, 'result', result)
-  })
-})
-
 describeIt(index, 'blanks(n)', (extract) => {
   let blanks
 
